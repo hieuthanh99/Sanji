@@ -10,7 +10,7 @@ from process import process
 class App:
     def __init__(self, root):
         self.root = root
-        self.root.title("Ứng dụng Sanji")
+        self.root.title("Ứng dụng Sanji by AHT-ASIA")
         self.root.geometry("800x600")  
 
         # Button Import Excel
