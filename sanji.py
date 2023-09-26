@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter import filedialog
 import pandas as pd
 from tkinter import messagebox
-
+import threading
 from process import process
 
 
@@ -108,7 +108,9 @@ class App:
         selected_item = self.tree.selection()[0]
         data = self.tree.item(selected_item, "values")
         print("Dữ liệu từ item được chọn:", data)
-        process(xls, selected_option)
+        thread = threading.Thread(target=process, args=(xls, selected_option))
+
+        thread.start()
 
 if __name__ == "__main__":
     # Lấy phiên bản của Pandas
