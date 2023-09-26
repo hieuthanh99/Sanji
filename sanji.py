@@ -104,6 +104,11 @@ class App:
         print("Dữ liệu từ item được chọn:", data)
 
 if __name__ == "__main__":
+    # Lấy phiên bản của Pandas
+    pandas_version = pd.__version__
+
+    # In phiên bản Pandas
+    print("Phiên bản Pandas:", pandas_version)
     root = tk.Tk()
     app = App(root)
     root.mainloop()
