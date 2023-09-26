@@ -4,6 +4,9 @@ from tkinter import filedialog
 import pandas as pd
 from tkinter import messagebox
 
+from process import process
+
+
 class App:
     def __init__(self, root):
         self.root = root
@@ -37,11 +40,13 @@ class App:
         if file_path:
             try:
                 # Đọc tệp Excel
+                global xls, selected_option
                 xls = pd.ExcelFile(file_path)
                 self.urlExcel = xls
                 self.combo_box.pack(pady=10)
                 self.df = pd.read_excel(xls, sheet_name=xls.sheet_names[0])
                 sheet_names = pd.ExcelFile(file_path).sheet_names
+                selected_option = sheet_names[0]
                 self.combo_box['values'] = sheet_names
                 self.combo_box.set(xls.sheet_names[0])
                 self.update_treeview(self.df)
@@ -59,6 +64,7 @@ class App:
 
     def on_combobox_select(self, event):
         selected_option = self.combo_box.get()
+        print(selected_option)
         self.df = pd.read_excel(self.urlExcel, sheet_name=selected_option)
         sheet_names = pd.ExcelFile(self.urlExcel).sheet_names
         self.combo_box['values'] = sheet_names
@@ -102,6 +108,7 @@ class App:
         selected_item = self.tree.selection()[0]
         data = self.tree.item(selected_item, "values")
         print("Dữ liệu từ item được chọn:", data)
+        process(xls, selected_option)
 
 if __name__ == "__main__":
     # Lấy phiên bản của Pandas
