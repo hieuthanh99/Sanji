@@ -88,8 +88,9 @@ class App:
         self.y_scrollbar = ttk.Scrollbar(self.frame, orient="vertical")
         self.x_scrollbar = ttk.Scrollbar(self.frame, orient="horizontal")
 
-        self.tree = ttk.Treeview(self.frame, columns=list(df.columns), show="headings", xscrollcommand=self.x_scrollbar.set)
-        self.tree.bind("<<TreeviewSelect>>", self.on_treeview_select)
+        self.tree = ttk.Treeview(self.frame, columns=list(df.columns), show="headings",
+                                 xscrollcommand=self.x_scrollbar.set)
+        self.tree.bind("<Double-Button-1>", self.on_treeview_select)
         for column in df.columns:
             self.tree.heading(column, text=column)
 
@@ -107,7 +108,7 @@ class App:
         selected_item = self.tree.selection()[0]
         data = self.tree.item(selected_item, "values")
         thread = threading.Thread(target=process, args=(self.sheet, data))
-
+        time.sleep(0.2)
         thread.start()
 
     def exit_tool(self):
