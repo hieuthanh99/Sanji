@@ -12,7 +12,7 @@ class App:
     def __init__(self, root):
         self.root = root
         self.root.title("Ứng dụng Sanji by AHT-ASIA")
-        self.root.geometry("800x600")  
+        self.root.geometry("1000x800")  
         self.sheet = None
         # Button Import Excel
         import_button = tk.Button(root, text="Import Excel", height=2, width=20, command=self.load_excel)
@@ -84,10 +84,10 @@ class App:
             self.x_scrollbar.destroy()
         if self.tree:
             self.tree.destroy()
-
         self.y_scrollbar = ttk.Scrollbar(self.frame, orient="vertical")
         self.x_scrollbar = ttk.Scrollbar(self.frame, orient="horizontal")
-
+        style = ttk.Style()
+        style.configure('Treeview.Heading', foreground='black', background='#66FFFF', font=('Arial',14),)
         self.tree = ttk.Treeview(self.frame, columns=list(df.columns), show="headings",
                                  xscrollcommand=self.x_scrollbar.set)
         self.tree.bind("<Double-Button-1>", self.on_treeview_select)
@@ -95,7 +95,11 @@ class App:
             self.tree.heading(column, text=column)
 
         for row in df.itertuples(index=False):
-            self.tree.insert("", "end", values=row)
+            formatted_row2 = tuple('Rỗng' if pd.isna(value) else value for value in row)
+            row = formatted_row2
+            if row[0] != 'Rỗng':
+                formatted_row = (int(row[0]),) + row[1:]
+                self.tree.insert("", "end", values=formatted_row)
 
         self.x_scrollbar.pack(side="bottom", fill="x")
         self.y_scrollbar.pack(side="right", fill="y")
