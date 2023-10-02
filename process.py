@@ -44,7 +44,7 @@ def process(sheet, data):
     if data[4].upper() in male:
         obj.find_element(By.ID, "_khaithithucdientu_WAR_eVisaportlet_gioiTinh-nam").click()
     elif data[4].upper() in female:
-        obj.find_element(By.ID, "_khaithithucdientu_WAR_eVisaport+let_gioiTinh-nu").click()
+        obj.find_element(By.ID, "_khaithithucdientu_WAR_eVisaportlet_gioiTinh-nu").click()
     else:
         Exception
 
